@@ -1,0 +1,553 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Maria Magica Biscuit - Bonecos Artesanais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #fef7e8;
+            color: #4a2e2a;
+        }
+
+        /* Cabeçalho */
+        header {
+            background-color: #f5d5b5;
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #e0b28a;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            color: #8b5a2b;
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Área de login */
+        .login-area {
+            display: flex;
+            gap: 1rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .login-area input {
+            padding: 0.4rem;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .login-area button {
+            background-color: #8b5a2b;
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-area button:hover {
+            background-color: #6b3f1a;
+        }
+
+        .user-status {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        /* Navegação */
+        nav {
+            background-color: #fff2e5;
+            padding: 0.8rem;
+            text-align: center;
+            border-bottom: 1px solid #e7cfb5;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            text-decoration: none;
+            color: #8b5a2b;
+            font-weight: bold;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1300px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Horários */
+        .info-bar {
+            background-color: #e9dacb;
+            padding: 0.8rem;
+            border-radius: 40px;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        /* Categorias */
+        .categorias {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn-cat {
+            background-color: #dbbd9a;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-cat.active {
+            background-color: #8b5a2b;
+            color: white;
+        }
+
+        /* Grade de produtos */
+        .produtos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .foto-exemplo {
+            background-color: #f0e2d4;
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a27b5c;
+            font-size: 0.9rem;
+            text-align: center;
+            flex-direction: column;
+            gap: 8px;
+            border-bottom: 1px solid #e4cfbc;
+        }
+
+        .foto-exemplo img {
+            max-width: 100%;
+            max-height: 140px;
+            object-fit: contain;
+        }
+
+        .upload-placeholder {
+            background-color: #f9f0e6;
+            padding: 5px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+
+        .card-info {
+            padding: 1rem;
+        }
+
+        .categoria-tag {
+            display: inline-block;
+            background-color: #f5d5b5;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .prod-titulo {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .descricao {
+            font-size: 0.85rem;
+            color: #6f4e37;
+            margin: 0.5rem 0;
+        }
+
+        .preco {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #b45f2b;
+            margin: 0.3rem 0;
+        }
+
+        .prazo {
+            font-size: 0.75rem;
+            background: #f1e7dd;
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        /* Área de upload de exemplo */
+        .upload-demo {
+            background: #fff1e2;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            border: 2px dashed #c9aa84;
+        }
+
+        .upload-demo input {
+            margin: 0.5rem 0;
+        }
+
+        /* Opções de pagamento, redes */
+        .info-footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            background-color: #f5e5d8;
+            border-radius: 30px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            gap: 1rem;
+        }
+
+        .pagamento span {
+            font-weight: bold;
+        }
+
+        .redes a {
+            margin-right: 1rem;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .whats {
+            color: #25D366;
+        }
+
+        .insta {
+            color: #e4405f;
+        }
+
+        /* Admin fake */
+        .admin-panel {
+            background-color: #fff1df;
+            padding: 1rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #dcc5ac;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 700px) {
+            .login-area {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            nav a {
+                display: inline-block;
+                margin: 0.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <h1>🍪 Biscuit Arte</h1>
+        <p>Bonecos artesanais em biscuit - Feitos com amor</p>
+    </div>
+    <div>
+        <div class="login-area">
+            <input type="text" id="loginUser" placeholder="Usuário">
+            <input type="password" id="loginPass" placeholder="Senha">
+            <button id="btnLoginCliente">Login Cliente</button>
+            <button id="btnLoginAdmin">Login Admin</button>
+        </div>
+        <div class="user-status" id="userStatus">👤 Visitante</div>
+    </div>
+</header>
+
+<nav>
+    <a href="#produtos">Produtos</a>
+    <a href="#upload">Adicionar Fotos</a>
+    <a href="#contato">Contato</a>
+    <a href="#adminzone">Admin</a>
+</nav>
+
+<div class="container">
+    <div class="info-bar">
+        🕒 Horário de funcionamento: 10:00 às 18:00 (Segunda a Sexta) - 5 dias por semana
+    </div>
+
+    <!-- Categorias -->
+    <div class="categorias" id="categoriasBtns">
+        <button class="btn-cat active" data-cat="todos">Todos</button>
+        <button class="btn-cat" data-cat="funko">Funko Pop</button>
+        <button class="btn-cat" data-cat="chibi">Chibi</button>
+        <button class="btn-cat" data-cat="pets">Pets</button>
+        <button class="btn-cat" data-cat="cenarios">Cenários</button>
+    </div>
+
+    <!-- Listagem de produtos -->
+    <div id="produtosGrid" class="produtos-grid"></div>
+
+    <!-- Espaço para subir fotos das peças como exemplo -->
+    <div id="upload" class="upload-demo">
+        <h3>📸 Envie uma foto da sua peça personalizada (exemplo)</h3>
+        <p>Mostre seu próprio boneco ou inspire-se enviando uma imagem aqui (simulação local)</p>
+        <input type="file" id="uploadImagem" accept="image/*">
+        <div id="previewFotos" style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;"></div>
+        <small>* As imagens ficam visíveis apenas durante a sessão (demo local)</small>
+    </div>
+
+    <!-- Informações de pagamento e contato -->
+    <div class="info-footer" id="contato">
+        <div class="pagamento">
+            <span>💳 Opções de pagamento:</span> Pix | Cartão de Crédito | Dinheiro (retirada)
+        </div>
+        <div class="redes">
+            <span>📱 Contato rápido:</span><br>
+            <a href="https://instagram.com" target="_blank" class="insta">📸 Instagram @maria_magica_biscuit</a>
+            <a href="https://wa.me/5511999999999?text=Olá%2C%20quero%20um%20boneco!" target="_blank" class="whats">📞 WhatsApp (11) 99999-9999</a>
+        </div>
+    </div>
+
+    <!-- Painel admin simples (somente visualização de controle) -->
+    <div id="adminPanel" class="admin-panel">
+        <h3>🔧 Painel do Administrador (Simulação)</h3>
+        <p>Bem-vindo, Admin! Aqui você poderia gerenciar produtos, valores e fotos.</p>
+        <button id="btnAddProdDemo">➕ Adicionar produto de exemplo (somente demonstração)</button>
+        <div id="adminMsg" style="margin-top: 10px; color: green;"></div>
+    </div>
+</div>
+
+<footer>
+    <p>🍪 Biscuit Arte - Peças exclusivas feitas à mão | Prazo médio: 30 a 40 dias úteis</p>
+    <p>© 2026 - Artesanato em biscuit</p>
+</footer>
+
+<script>
+    // Banco de dados de produtos
+    let produtos = [
+        { id: 1, nome: "Funko Pop - Personalizado", categoria: "funko", descricao: "Boneco estilo Funko, todo em biscuit, pintura manual.", preco: "R$ 129,90", prazo: "30 dias", fotoExemplo: "🎭" },
+        { id: 2, nome: "Chibi - Personalizado ", categoria: "chibi", descricao: "Chibi Personalizado.", preco: "R$ 180,00", prazo: "30 dias", fotoExemplo: "🧚" },
+        { id: 3, nome: "Pet - Personalizado ", categoria: "pets", descricao: "o pet é personalizado de acordo com a escolha do cliente", preco: "R$ 49,90", prazo: "30 dias", fotoExemplo: "🐶" },
+        { id: 4, nome: "Cenário - Personalizado", categoria: "cenarios", descricao: "O cliente pode pedir personalizado.", preco: "R$ 300,00", prazo: "30 dias", fotoExemplo: "🌼" },
+        
+    ];
+
+    let usuarioLogado = null; // 'cliente' ou 'admin'
+    let categoriaAtiva = "todos";
+
+    // Função para renderizar produtos baseado na categoria e login apenas para exibir visual (sem restrição de acesso, mas admin vê igual)
+    function renderizarProdutos() {
+        const grid = document.getElementById("produtosGrid");
+        let filtrados = produtos;
+        if (categoriaAtiva !== "todos") {
+            filtrados = produtos.filter(p => p.categoria === categoriaAtiva);
+        }
+
+        if (filtrados.length === 0) {
+            grid.innerHTML = "<p style='text-align:center;'>Nenhum produto nessa categoria ainda.</p>";
+            return;
+        }
+
+        grid.innerHTML = filtrados.map(prod => `
+            <div class="card">
+                <div class="foto-exemplo">
+                    <div style="font-size: 3rem;">${prod.fotoExemplo}</div>
+                    <div class="upload-placeholder">📷 Exemplo: ${prod.nome}</div>
+                    <small>(imagem ilustrativa)</small>
+                </div>
+                <div class="card-info">
+                    <span class="categoria-tag">${prod.categoria.toUpperCase()}</span>
+                    <div class="prod-titulo">${prod.nome}</div>
+                    <div class="descricao">${prod.descricao}</div>
+                    <div class="preco">${prod.preco}</div>
+                    <div class="prazo">⏱️ Prazo: ${prod.prazo}</div>
+                </div>
+            </div>
+        `).join("");
+    }
+
+    // Atualizar status da interface conforme login
+    function atualizarStatusUI() {
+        const statusDiv = document.getElementById("userStatus");
+        const adminPanel = document.getElementById("adminPanel");
+        if (usuarioLogado === "admin") {
+            statusDiv.innerHTML = "👑 Admin logado - Acesso total";
+            adminPanel.style.display = "block";
+        } else if (usuarioLogado === "cliente") {
+            statusDiv.innerHTML = "🧸 Cliente logado - Você pode ver produtos e enviar fotos";
+            adminPanel.style.display = "none";
+        } else {
+            statusDiv.innerHTML = "👤 Visitante - Faça login (cliente ou admin)";
+            adminPanel.style.display = "none";
+        }
+    }
+
+    // Simulação de login
+    document.getElementById("btnLoginCliente").addEventListener("click", () => {
+        const user = document.getElementById("loginUser").value;
+        const pass = document.getElementById("loginPass").value;
+        if (user && pass) {
+            usuarioLogado = "cliente";
+            atualizarStatusUI();
+            alert(`Bem-vindo(a) ${user}! Login como cliente efetuado.`);
+        } else {
+            alert("Digite usuário e senha para login cliente (qualquer valor)");
+        }
+    });
+
+    document.getElementById("btnLoginAdmin").addEventListener("click", () => {
+        const user = document.getElementById("loginUser").value;
+        const pass = document.getElementById("loginPass").value;
+        // Simulação: admin fixo
+        if (user === "admin" && pass === "1234") {
+            usuarioLogado = "admin";
+            atualizarStatusUI();
+            alert("Acesso administrativo liberado.");
+        } else {
+            alert("Admin padrão: usuário 'admin' e senha '1234'");
+        }
+    });
+
+    // Categorias
+    const botoesCat = document.querySelectorAll(".btn-cat");
+    botoesCat.forEach(btn => {
+        btn.addEventListener("click", () => {
+            botoesCat.forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            categoriaAtiva = btn.getAttribute("data-cat");
+            renderizarProdutos();
+        });
+    });
+
+    // Admin demo: adicionar produto exemplo (se admin)
+    document.getElementById("btnAddProdDemo")?.addEventListener("click", () => {
+        if (usuarioLogado !== "admin") {
+            alert("Somente admin pode adicionar produtos.");
+            return;
+        }
+        const novoId = produtos.length + 1;
+        const novoProd = {
+            id: novoId,
+            nome: "Novo Boneco Especial",
+            categoria: "chibi",
+            descricao: "Peça exclusiva adicionada pelo admin.",
+            preco: "R$ 74,90",
+            prazo: "30 dias",
+            fotoExemplo: "✨"
+        };
+        produtos.push(novoProd);
+        renderizarProdutos();
+        document.getElementById("adminMsg").innerHTML = "Produto adicionado com sucesso!";
+        setTimeout(() => document.getElementById("adminMsg").innerHTML = "", 3000);
+    });
+
+    // Upload de fotos (exemplo)
+    const uploadInput = document.getElementById("uploadImagem");
+    const previewDiv = document.getElementById("previewFotos");
+    uploadInput.addEventListener("change", function(e) {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+            if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement("img");
+                    img.src = event.target.result;
+                    img.style.width = "100px";
+                    img.style.height = "100px";
+                    img.style.objectFit = "cover";
+                    img.style.borderRadius = "12px";
+                    img.style.border = "2px solid #dbbd9a";
+                    const divImg = document.createElement("div");
+                    divImg.appendChild(img);
+                    previewDiv.appendChild(divImg);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert("Por favor, selecione uma imagem.");
+            }
+        });
+    });
+
+    // Contato rápido com horário dinâmico
+    // Adicionar info de horário no rodapé também por segurança
+    const horarioMsg = document.createElement("div");
+    horarioMsg.style.marginTop = "10px";
+    horarioMsg.style.fontSize = "0.8rem";
+    document.querySelector(".info-bar").appendChild(horarioMsg);
+    
+    function atualizarHorarioStatus() {
+        const agora = new Date();
+        const dia = agora.getDay(); // 0 domingo, 1 segunda.. 5 sexta, 6 sabado
+        const hora = agora.getHours();
+        const minuto = agora.getMinutes();
+        let aberto = false;
+        if (dia >= 1 && dia <= 5) { // segunda a sexta
+            if ((hora > 10) || (hora === 10 && minuto >= 0) && (hora < 18) || (hora === 17 && minuto <= 59)) {
+                aberto = true;
+            }
+            if (hora >= 18) aberto = false;
+            if (hora < 10) aberto = false;
+        }
+        if (aberto) {
+            horarioMsg.innerHTML = "✅ LOJA ABERTA AGORA! Atendemos até às 18h.";
+            horarioMsg.style.color = "green";
+        } else {
+            horarioMsg.innerHTML = "⛔ LOJA FECHADA NO MOMENTO. Horário: 10h às 18h (seg-sex)";
+            horarioMsg.style.color = "#a52a2a";
+        }
+    }
+    atualizarHorarioStatus();
+    setInterval(atualizarHorarioStatus, 60000);
+
+    // Inicialização
+    renderizarProdutos();
+    atualizarStatusUI();
+</script>
+</body>
+</html>
+```
